@@ -69,7 +69,7 @@ if ($_POST) {
       <?php
     }
     else{
-      require_once('./basic-form-mp.html');
+      require_once('./basic-form-mp.php');
     }
 }
 ?>

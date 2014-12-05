@@ -64,10 +64,25 @@ function create_payment_mp($body)
     $params = array('access_token' => $response['body']->access_token);
 
 
-    $payment = $meli->post('/checkout/custom/beta/create_payment', $body, $params);
+    //$payment = $meli->post('/checkout/custom/beta/create_payment', $body, $params);
+    $payment = $meli->post('/v1/payments', $body, $params);
 
 
     return $payment["body"];
+}
+
+function get_payment_method_id($card_token_id){
+    $meli = new Meli('7929281084187786', 'zgO0UhRBSnDRYLq0M8emV62s7VUw62Vu');
+
+    $response = $meli->getAccessToken();
+    $params = array('access_token' => $response['body']->access_token);
+
+    $card_token = $meli->get('https://pagamento.mercadopago.com/card_tokens/'.$card_token_id, $params);
+
+
+    $payment_method_id = $card_token->trunc_card_number;
+
+    return $payment_method_id;
 }
 
 ?>

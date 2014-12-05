@@ -11,17 +11,21 @@
 
 
     $body = array();
-    $body['amount'] = $amount;
+    $body['transaction_amount'] = $amount;
     $body['installments'] = $installments;
     $body['card'] = $card_token;
 
     //Deberiamos hacer esto opcional
-    $body['reason'] = 'PHP reason';
+    $body['description'] = 'PHP reason';
     $body['installments'] = 1;
+    $body['payment_method_id'] = 'visa';
+    //$body['payment_method_id'] = get_payment_method_id($card_token);
 
 
     if (isset($_SESSION['customer_id'])){
-      $body['customer'] = $_SESSION['customer_id'];
+      $body['payer'] = array("type" => "customer",
+                          "id" => $_SESSION['customer_id']);
+      //$body['customer'] = $_SESSION['customer_id'];
     }
     else{
       $body['payer_email'] =$payer_email;
